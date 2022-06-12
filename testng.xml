@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<suite name="My Framework" parallel="methods" thread-count="1"> <!-- group-by-instances="true" preserve-order="true" -->
+    <parameter name="browserName" value="chrome"/>
+    <test name="Module">
+        <classes name="Sub-Module">
+            <class name="com.framework.my.testcases.admin.admin"/>
+        </classes>
+    </test>
+    <listeners>
+        <listener class-name="com.framework.my.listeners.TestListener"/>
+    </listeners>
+</suite>
