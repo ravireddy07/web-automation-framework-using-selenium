@@ -1,16 +1,16 @@
 # Documentation
 
 ## Uses of Annotation
-    
-### Parameters
 
-```sh
-@Parameters({"parameter1", "parameter2", "parameter3"})
-@BeforeMethod 
-public void beforeMethod(@Optional String parameter1, String parameter2, String parameter3) {
-  String test = parameter1 + parameter2 + parameter3;
-}
-```
+- <b> Parameters </b>
+
+  ```sh
+  @Parameters({"parameter1", "parameter2", "parameter3"})
+  @BeforeMethod 
+  public void beforeMethod(@Optional String parameter1, String parameter2, String parameter3) {
+    String test = parameter1 + parameter2 + parameter3;
+  }
+  ```
 
 ## Type of Waits
 
