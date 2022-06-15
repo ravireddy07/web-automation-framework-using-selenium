@@ -1,4 +1,4 @@
-package com.framework.my;
+package ravireddy07.com.github;
 
 import org.openqa.selenium.remote.RemoteWebDriver;
 

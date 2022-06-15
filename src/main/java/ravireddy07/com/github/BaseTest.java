@@ -1,10 +1,10 @@
-package com.framework.my;
+package ravireddy07.com.github;
 
-import com.aventstack.extentreports.Status;
-import com.framework.my.utils.Constants;
-import com.framework.my.utils.ExtentReport;
-import com.framework.my.utils.TestUtils;
-import io.github.bonigarcia.wdm.WebDriverManager;
+import java.net.URL;
+import java.util.concurrent.TimeUnit;
+
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.apache.logging.log4j.ThreadContext;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
@@ -12,19 +12,22 @@ import org.openqa.selenium.edge.EdgeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.remote.DesiredCapabilities;
 import org.openqa.selenium.remote.RemoteWebDriver;
-import org.openqa.selenium.support.PageFactory;
 import org.testng.annotations.*;
 
-import java.io.File;
-import java.net.URL;
-import java.util.concurrent.TimeUnit;
+import ravireddy07.com.github.utils.Constants;
+import ravireddy07.com.github.utils.TestUtils;
+
+import io.github.bonigarcia.wdm.WebDriverManager;
 
 public class BaseTest {
     public static RemoteWebDriver driver = null;
+
+    public BaseTest() {
+        this.driver = DriverManager.getDriver();
+    }
     Boolean headlessMode = false;
     TestUtils utils = new TestUtils();
     protected static ThreadLocal<String> platform = new ThreadLocal<String>();
-    protected static ThreadLocal<String> dateTime = new ThreadLocal<String>();
     protected static ThreadLocal<String> browserName = new ThreadLocal<String>();
 
     public String getPlatform() {
@@ -33,14 +36,6 @@ public class BaseTest {
 
     public void setPlatform(String platform2) {
         platform.set(platform2);
-    }
-
-    public String getDateTime() {
-        return dateTime.get();
-    }
-
-    public void setDateTime(String dateTime2) {
-        dateTime.set(dateTime2);
     }
 
     public String getBrowserName() {
@@ -53,7 +48,12 @@ public class BaseTest {
 
     @Parameters({"browserName"})
     @BeforeSuite
-    public void beforeSuite(String browserName) {
+    public void beforeSuite(@Optional String browserName) {
+        final Logger logger = LogManager.getLogger(BaseTest.class);
+
+        logger.info("This is an Info Message!");
+
+        //ThreadContext.put("ROUTINGKEY", "logs");
         setPlatform("Mac");
         setBrowserName(browserName);
         utils.log().info("Before Suite Executed Successfully");
@@ -112,15 +112,26 @@ public class BaseTest {
 
     public RemoteWebDriver driverInitialization(String targetBrowser) {
         try {
-            DesiredCapabilities dc = new DesiredCapabilities();
-            dc.setBrowserName(targetBrowser);
+            DesiredCapabilities capabilities = new DesiredCapabilities();
+            capabilities.setBrowserName(targetBrowser);
 
             // Selenium Grid
             if(System.getenv("BROWSER_GRID_URL") != null) {
                 System.out.println("Running in grid mode with Grid Url: " + System.getenv("BROWSER_GRID_URL"));
-                driver = new RemoteWebDriver(new URL(System.getenv("BROWSER_GRID_URL")), dc);
-            } else { // Local
-                if(targetBrowser.equalsIgnoreCase("chrome")) {
+                utils.log().info("Running in grid mode with Grid Url: " + System.getenv("BROWSER_GRID_URL"));
+                driver = new RemoteWebDriver(new URL(System.getenv("BROWSER_GRID_URL")), capabilities);
+            } else {
+                // Local
+                if(targetBrowser.equalsIgnoreCase("firefox")) {
+                    //System.setProperty("webdriver.gecko.driver", System.getProperty("user.dir") + File.separator + "drivers" + File.separator + "firefox.exe");
+                    WebDriverManager.firefoxdriver().setup();
+                    driver = new FirefoxDriver();
+                    utils.log().info("Firefox Driver Initialized");
+                } else if(targetBrowser.equalsIgnoreCase("edge")) {
+                    WebDriverManager.edgedriver().setup();
+                    driver = new EdgeDriver();
+                    utils.log().info("Edge Driver Initialized");
+                } else {
                     // System.setProperty("webdriver.chrome.driver", System.getProperty("user.dir") + File.separator + "drivers" + File.separator + "chromedriver.exe");
                     WebDriverManager.chromedriver().setup();
                     ChromeOptions options = new ChromeOptions();
@@ -131,13 +142,7 @@ public class BaseTest {
                     } else {
                         driver = new ChromeDriver();
                     }
-                } else if(targetBrowser.equalsIgnoreCase("firefox")) {
-                    //System.setProperty("webdriver.gecko.driver", System.getProperty("user.dir") + File.separator + "drivers" + File.separator + "firefox.exe");
-                    WebDriverManager.firefoxdriver().setup();
-                    driver = new FirefoxDriver();
-                } else if(targetBrowser.equalsIgnoreCase("edge")) {
-                    WebDriverManager.edgedriver().setup();
-                    driver = new EdgeDriver();
+                    utils.log().info("Chrome Driver Initialized");
                 }
             }
         } catch(Exception e) {
@@ -145,16 +150,5 @@ public class BaseTest {
             throw new RuntimeException();
         }
         return DriverManager.setWebDriver(driver);
-    }
-
-    public void setupCustomLogs(String platformName, String browserName) {
-        // Setting Custom logs
-        String logFilePath = "logs" + File.separator + platformName + "_" + browserName;
-        File logFile = new File(logFilePath);
-        if(!logFile.exists()) {
-            logFile.mkdirs();
-        }
-        ThreadContext.put("ROUTINGKEY", logFilePath);
-        utils.log().info("Log(s) for this Run is initiated at: " + logFilePath);
     }
 }

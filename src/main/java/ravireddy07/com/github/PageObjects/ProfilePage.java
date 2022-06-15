@@ -1,6 +1,6 @@
-package com.framework.my.PageObjects;
+package ravireddy07.com.github.PageObjects;
 
-import com.framework.my.BaseTest;
+import ravireddy07.com.github.BaseTest;
 import org.openqa.selenium.remote.RemoteWebDriver;
 import org.openqa.selenium.support.PageFactory;
 

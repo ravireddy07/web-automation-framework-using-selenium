@@ -1,4 +1,4 @@
-package com.framework.my.utils;
+package ravireddy07.com.github.utils;
 
 import com.aventstack.extentreports.ExtentReports;
 import com.aventstack.extentreports.ExtentTest;

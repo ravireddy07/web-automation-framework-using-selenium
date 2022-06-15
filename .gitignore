@@ -63,7 +63,7 @@ update.md
 /Serverlogs
 /videos
 *.iml
-/Logs
+/logs
 /Reports/
 /${ctx:ROUTINGKEY}
 *.html

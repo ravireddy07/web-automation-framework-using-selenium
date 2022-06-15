@@ -1,28 +1,31 @@
-package com.framework.my.listeners;
-
-import com.aventstack.extentreports.MediaEntityBuilder;
-import com.aventstack.extentreports.Status;
-import com.framework.my.DriverManager;
-import com.framework.my.utils.TestUtils;
-import com.framework.my.BaseTest;
-import com.framework.my.utils.ExtentReport;
-import org.apache.commons.codec.binary.Base64;
-import org.apache.commons.io.FileUtils;
-import org.openqa.selenium.OutputType;
-import org.testng.ITestContext;
-import org.testng.ITestListener;
-import org.testng.ITestResult;
-import org.testng.Reporter;
+package ravireddy07.com.github.listeners;
 
 import java.io.File;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.io.StringWriter;
+import java.lang.reflect.Constructor;
+import java.lang.reflect.Method;
 import java.nio.charset.StandardCharsets;
 import java.util.HashMap;
 import java.util.Map;
 
-public class TestListener implements ITestListener {
+import com.aventstack.extentreports.Status;
+import org.apache.commons.io.FileUtils;
+import org.openqa.selenium.OutputType;
+import org.testng.*;
+import org.testng.annotations.ITestAnnotation;
+
+import org.apache.commons.codec.binary.Base64;
+import com.aventstack.extentreports.MediaEntityBuilder;
+import com.aventstack.extentreports.markuputils.ExtentColor;
+import com.aventstack.extentreports.markuputils.MarkupHelper;
+import ravireddy07.com.github.BaseTest;
+import ravireddy07.com.github.DriverManager;
+import ravireddy07.com.github.utils.ExtentReport;
+import ravireddy07.com.github.utils.TestUtils;
+
+public class TestListener implements ITestListener, IAnnotationTransformer {
     @Override
     public void onTestStart(ITestResult result) {
         BaseTest base = new BaseTest();
@@ -31,16 +34,17 @@ public class TestListener implements ITestListener {
 
     @Override
     public void onTestSuccess(ITestResult result) {
-        ExtentReport.getTest().log(Status.PASS, "Test Passed");
+        ExtentReport.getTest().log(Status.PASS, MarkupHelper.createLabel("Test Case '" + result.getName() + "' Passed", ExtentColor.GREEN));
     }
 
     @Override
     public void onTestSkipped(ITestResult result) {
-        ExtentReport.getTest().log(Status.SKIP, "Test Skipped");
+        ExtentReport.getTest().log(Status.SKIP, MarkupHelper.createLabel("Test Case '" + result.getName() + "' Skipped", ExtentColor.GREY));
     }
 
     @Override
-    public void onTestFailedButWithinSuccessPercentage(ITestResult result) {}
+    public void onTestFailedButWithinSuccessPercentage(ITestResult result) {
+    }
 
     @Override
     public void onFinish(ITestContext result) {
@@ -65,11 +69,10 @@ public class TestListener implements ITestListener {
             e1.printStackTrace();
         }
 
+        // Get Values from current XML files(This will helpful if we have given Parameters in xml)
         Map<String, String> params = new HashMap<String, String>();
         params = result.getTestContext().getCurrentXmlTest().getAllParameters();
-
         String imagePath = "Screenshots" + File.separator + params.get("browserName") + File.separator + utils.dateTime() + File.separator + result.getTestClass().getRealClass().getSimpleName() + File.separator + result.getName() + ".png";
-
         String completeImagePath = System.getProperty("user.dir") + File.separator + imagePath;
 
         try {
@@ -79,8 +82,13 @@ public class TestListener implements ITestListener {
         } catch(IOException e) {
             e.printStackTrace();
         }
-        ExtentReport.getTest().log(Status.FAIL, "Test Failed");
+        ExtentReport.getTest().log(Status.FAIL, MarkupHelper.createLabel("Test Case '" + result.getName() + "' Failed", ExtentColor.RED));
         ExtentReport.getTest().fail("Test Failed", MediaEntityBuilder.createScreenCaptureFromBase64String(new String(encoded, StandardCharsets.US_ASCII)).build());
         ExtentReport.getTest().fail(result.getThrowable());
+    }
+
+    @Override
+    public void transform(ITestAnnotation iTestAnnotation, Class aClass, Constructor constructor, Method method) {
+        iTestAnnotation.setRetryAnalyzer(RetryAnalyzer.class);
     }
 }
