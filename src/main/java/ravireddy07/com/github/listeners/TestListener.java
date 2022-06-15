@@ -29,7 +29,7 @@ public class TestListener implements ITestListener, IAnnotationTransformer {
     @Override
     public void onTestStart(ITestResult result) {
         BaseTest base = new BaseTest();
-        ExtentReport.startTest(result.getName(), result.getMethod().getDescription()).assignCategory(base.getPlatform() + "_" + base.getBrowserName()).assignAuthor("Ravi Kanth Gojur");
+        ExtentReport.startTest(result.getName(), result.getMethod().getDescription()).assignCategory("Mac M1_Chrome").assignAuthor("Ravi Kanth Gojur");
     }
 
     @Override

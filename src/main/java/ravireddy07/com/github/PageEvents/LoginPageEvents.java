@@ -1,51 +1,34 @@
-package ravireddy07.com.github.PageObjects;
+package ravireddy07.com.github.PageEvents;
 
 import com.aventstack.extentreports.Status;
-import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.remote.RemoteWebDriver;
 import org.openqa.selenium.support.PageFactory;
 import ravireddy07.com.github.BaseTest;
+import ravireddy07.com.github.PageObjects.HomePageElements;
+import ravireddy07.com.github.PageObjects.LoginPageElements;
 import ravireddy07.com.github.utils.ExtentReport;
 import ravireddy07.com.github.utils.TestUtils;
 
 import java.util.concurrent.TimeUnit;
 
-public class LoginPage extends BaseTest {
+public class LoginPageEvents extends BaseTest {
     TestUtils utils = new TestUtils();
     Actions objActions;
     WebElement element = null;
 
-    public LoginPage(RemoteWebDriver driver) {
+    public LoginPageEvents(RemoteWebDriver driver) {
         BaseTest.driver = driver;
         PageFactory.initElements(driver, this);
         objActions = new Actions(driver);
     }
 
-    public static final By bySignInButton = By.xpath("//span[text()='Sign in']/ancestor::button[@data-testid='login-submit-btn']");
-    public static final By bySignInSSOButton = By.xpath("//span[text()='Sign in with single sign on']/ancestor::button[@data-testid='normal-btn']");
-    public static final By loginUsername = By.xpath("//div[@data-testid='login-username']/child::input");
-    public static final By loginPassword = By.xpath("//div[@data-testid='login-password']/child::input");
-    protected final By byInvalidEmailPass = By.xpath("//div[@role='alert' and text() ='Uh oh! The email address or password entered is not valid.']");
-    protected final By byTrainingDropDown = By.xpath("//div[@data-testid='filter-by-training']");
-    protected final By byCompanyDropDown = By.xpath("//div[@data-testid='filter-by-company']");
-    protected final By byAnalyticsDropDown = By.xpath("//div[@data-testid='filter-by-analytics']");
-    protected final By byHomeTab = By.xpath("//a[@data-testid='home-menu']");
-    protected final By byCoursesTab = By.xpath("//a[@data-testid='courses-menu']");
-    protected final By byPathsTab = By.xpath("//a[@data-testid='paths-menu']");
-    protected final By byEventsTab = By.xpath("//a[@data-testid='events-menu']");
-    protected final By byPeopleTab = By.xpath("//a[@data-testid='peoples-menu']");
-    protected final By byInsightsTab = By.xpath("//a[@data-testid='insights-menu']");
-    protected final By byReportsTab = By.xpath("//a[@data-testid='reports-menu']");
-    protected final By byBranchTab = By.xpath("//a[@data-testid='branches-menu']");
-    protected final By byForumTab = By.xpath("//a[@data-testid='forum-menu']");
-
     public void enterEmail(String userName) throws Exception {
         try {
-            element = driver.findElement(loginUsername);
+            element = driver.findElement(LoginPageElements.loginUsername);
             element.clear();
-            driver.findElement(loginUsername).sendKeys(userName);
+            driver.findElement(LoginPageElements.loginUsername).sendKeys(userName);
             utils.log().info("Entered the email Address Successfully");
             ExtentReport.getTest().log(Status.INFO, "Entered the email Address Successfully");
         } catch(Exception e) {
@@ -57,7 +40,7 @@ public class LoginPage extends BaseTest {
     }
 
     public boolean validateEnteredEmail(String userName) throws Exception {
-        String text = driver.findElement(loginUsername).getText();
+        String text = driver.findElement(LoginPageElements.loginUsername).getText();
         System.out.println(text);
         utils.log().info(text);
         try {
@@ -79,7 +62,7 @@ public class LoginPage extends BaseTest {
 
     public void enterPassword(String password) throws Exception {
         try {
-            element = driver.findElement(loginPassword);
+            element = driver.findElement(LoginPageElements.loginPassword);
             element.clear();
             element.sendKeys(password);
             utils.log().info("Entered Password Successfully");
@@ -93,7 +76,7 @@ public class LoginPage extends BaseTest {
     }
 
     public boolean validateInvalidLoginCredentialsToaster() {
-        if(driver.findElements(byInvalidEmailPass).size() > 0) {
+        if(driver.findElements(LoginPageElements.byInvalidEmailPass).size() > 0) {
             utils.log().info("Invalid Email or Password toaster found");
             ExtentReport.getTest().log(Status.INFO, "Invalid Email or Password toaster found");
             return true;
@@ -105,7 +88,7 @@ public class LoginPage extends BaseTest {
 
     public void clickSignInButton() throws Exception {
         try {
-            driver.findElement(bySignInButton).click();
+            driver.findElement(LoginPageElements.bySignInButton).click();
             utils.log().info("Clicked on Sign in Button");
             ExtentReport.getTest().log(Status.INFO, "Clicked on Sign in Button");
         } catch(Exception e) {
@@ -118,7 +101,7 @@ public class LoginPage extends BaseTest {
 
     public void clickSSOSignIn() throws Exception {
         try {
-            driver.findElement(bySignInSSOButton).click();
+            driver.findElement(LoginPageElements.bySignInSSOButton).click();
             utils.log().info("Clicked on Sign in with SSO Button");
             ExtentReport.getTest().log(Status.INFO, "Clicked on Sign in with SSO Button");
         } catch(Exception e) {
@@ -131,7 +114,7 @@ public class LoginPage extends BaseTest {
 
     public void hoverTrainingTab() throws Exception {
         try {
-            objActions.moveToElement(driver.findElement(byTrainingDropDown)).build().perform();
+            objActions.moveToElement(driver.findElement(HomePageElements.byTrainingDropDown)).build().perform();
             utils.log().info("Hovering on Training Tab");
             ExtentReport.getTest().log(Status.INFO, "Hovering on Training Tab");
         } catch(Exception e) {
@@ -144,7 +127,7 @@ public class LoginPage extends BaseTest {
 
     public void hoverAnalyticsTab() throws Exception {
         try {
-            objActions.moveToElement(driver.findElement(byAnalyticsDropDown)).build().perform();
+            objActions.moveToElement(driver.findElement(HomePageElements.byAnalyticsDropDown)).build().perform();
             utils.log().info("Hovering on Analytics Tab");
             ExtentReport.getTest().log(Status.INFO, "Hovering on Analytics Tab");
         } catch(Exception e) {
@@ -157,7 +140,7 @@ public class LoginPage extends BaseTest {
 
     public void hoverCompanyTab() throws Exception {
         try {
-            objActions.moveToElement(driver.findElement(byCompanyDropDown)).build().perform();
+            objActions.moveToElement(driver.findElement(HomePageElements.byCompanyDropDown)).build().perform();
             utils.log().info("Hovering on Training Tab");
             ExtentReport.getTest().log(Status.INFO, "Hovering on Company Tab");
         } catch(Exception e) {
@@ -170,7 +153,7 @@ public class LoginPage extends BaseTest {
 
     public void clickHomeTab() throws Exception {
         try {
-            driver.findElement(byHomeTab).click();
+            driver.findElement(HomePageElements.byHomeTab).click();
             utils.log().info("Clicked on Home Tab");
             ExtentReport.getTest().log(Status.INFO, "Clicked on Home Tab");
         } catch(Exception e) {
@@ -183,10 +166,10 @@ public class LoginPage extends BaseTest {
 
     public void clickCoursesTab() throws Exception {
         try {
-            if(driver.findElements(byTrainingDropDown).size() != 0) {
+            if(driver.findElements(HomePageElements.byTrainingDropDown).size() != 0) {
                 hoverTrainingTab();
             }
-            driver.findElement(byCoursesTab).click();
+            driver.findElement(HomePageElements.byCoursesTab).click();
             utils.log().info("Clicked on Courses Tab");
             ExtentReport.getTest().log(Status.INFO, "Clicked on Courses Tab");
             driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
@@ -200,7 +183,7 @@ public class LoginPage extends BaseTest {
 
     public void clickCoursesTabLearner() throws Exception {
         try {
-            driver.findElement(byCoursesTab).click();
+            driver.findElement(HomePageElements.byCoursesTab).click();
             utils.log().info("Clicked on Courses Tab");
             ExtentReport.getTest().log(Status.INFO, "Clicked on Courses Tab");
             driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
@@ -214,10 +197,10 @@ public class LoginPage extends BaseTest {
 
     public void clickPathsTab() throws Exception {
         try {
-            if(driver.findElements(byTrainingDropDown).size() != 0) {
+            if(driver.findElements(HomePageElements.byTrainingDropDown).size() != 0) {
                 hoverTrainingTab();
             }
-            driver.findElement(byPathsTab).click();
+            driver.findElement(HomePageElements.byPathsTab).click();
             utils.log().info("Clicked on Paths Tab");
             ExtentReport.getTest().log(Status.INFO, "Clicked on Paths Tab");
             driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
@@ -231,7 +214,7 @@ public class LoginPage extends BaseTest {
 
     public void clickPathsTabLearner() throws Exception {
         try {
-            driver.findElement(byPathsTab).click();
+            driver.findElement(HomePageElements.byPathsTab).click();
             utils.log().info("Clicked on Paths Tab");
             ExtentReport.getTest().log(Status.INFO, "Clicked on Paths Tab");
             driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
@@ -245,10 +228,10 @@ public class LoginPage extends BaseTest {
 
     public void clickEventsTab() throws Exception {
         try {
-            if(driver.findElements(byTrainingDropDown).size() != 0) {
+            if(driver.findElements(HomePageElements.byTrainingDropDown).size() != 0) {
                 hoverTrainingTab();
             }
-            driver.findElement(byEventsTab).click();
+            driver.findElement(HomePageElements.byEventsTab).click();
             utils.log().info("Clicked on Events Tab");
             ExtentReport.getTest().log(Status.INFO, "Clicked on Events Tab");
             driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
@@ -262,7 +245,7 @@ public class LoginPage extends BaseTest {
 
     public void clickEventsTabLearner() throws Exception {
         try {
-            driver.findElement(byEventsTab).click();
+            driver.findElement(HomePageElements.byEventsTab).click();
             utils.log().info("Clicked on Events Tab");
             ExtentReport.getTest().log(Status.INFO, "Clicked on Events Tab");
             driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
@@ -276,10 +259,10 @@ public class LoginPage extends BaseTest {
 
     public void clickPeopleTab() throws Exception {
         try {
-            if(driver.findElements(byCompanyDropDown).size() != 0) {
+            if(driver.findElements(HomePageElements.byCompanyDropDown).size() != 0) {
                 hoverCompanyTab();
             }
-            driver.findElement(byPeopleTab).click();
+            driver.findElement(HomePageElements.byPeopleTab).click();
             utils.log().info("Clicked on People Tab");
             ExtentReport.getTest().log(Status.INFO, "Clicked on People Tab");
             driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
@@ -293,10 +276,10 @@ public class LoginPage extends BaseTest {
 
     public void clickInsightsTab() throws Exception {
         try {
-            if(driver.findElements(byAnalyticsDropDown).size() != 0) {
+            if(driver.findElements(HomePageElements.byAnalyticsDropDown).size() != 0) {
                 hoverAnalyticsTab();
             }
-            driver.findElement(byInsightsTab).click();
+            driver.findElement(HomePageElements.byInsightsTab).click();
             utils.log().info("Clicked on Insights Tab");
             ExtentReport.getTest().log(Status.INFO, "Clicked on Insights Tab");
             driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
@@ -310,10 +293,10 @@ public class LoginPage extends BaseTest {
 
     public void clickReportsTab() throws Exception {
         try {
-            if(driver.findElements(byAnalyticsDropDown).size() != 0) {
+            if(driver.findElements(HomePageElements.byAnalyticsDropDown).size() != 0) {
                 hoverAnalyticsTab();
             }
-            driver.findElement(byReportsTab).click();
+            driver.findElement(HomePageElements.byReportsTab).click();
             utils.log().info("Clicked on Reports Tab");
             ExtentReport.getTest().log(Status.INFO, "Clicked on Reports Tab");
             driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
@@ -327,10 +310,10 @@ public class LoginPage extends BaseTest {
 
     public void clickBranchTab() throws Exception {
         try {
-            if(driver.findElements(byCompanyDropDown).size() != 0) {
+            if(driver.findElements(HomePageElements.byCompanyDropDown).size() != 0) {
                 hoverCompanyTab();
             }
-            driver.findElement(byBranchTab).click();
+            driver.findElement(HomePageElements.byBranchTab).click();
             utils.log().info("Clicked on Branches Tab");
             ExtentReport.getTest().log(Status.INFO, "Clicked on Branches Tab");
             driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
@@ -344,7 +327,7 @@ public class LoginPage extends BaseTest {
 
     public void clickForumTab() throws Exception {
         try {
-            driver.findElement(byForumTab).click();
+            driver.findElement(HomePageElements.byForumTab).click();
             utils.log().info("Clicked on Forums Tab");
             ExtentReport.getTest().log(Status.INFO, "Clicked on Forums Tab");
             driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);

@@ -3,7 +3,7 @@
     <parameter name="browserName" value="chrome"/>
     <test name="Module">
         <classes name="Sub-Module">
-            <class name="ravireddy07.com.github.testcases.learner.learner"/>
+            <class name="ravireddy07.com.github.testcases.amazon.sample"/>
         </classes>
     </test>
     <listeners>

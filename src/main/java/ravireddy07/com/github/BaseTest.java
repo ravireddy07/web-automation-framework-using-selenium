@@ -3,9 +3,6 @@ package ravireddy07.com.github;
 import java.net.URL;
 import java.util.concurrent.TimeUnit;
 
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
-import org.apache.logging.log4j.ThreadContext;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.edge.EdgeDriver;
@@ -49,11 +46,6 @@ public class BaseTest {
     @Parameters({"browserName"})
     @BeforeSuite
     public void beforeSuite(@Optional String browserName) {
-        final Logger logger = LogManager.getLogger(BaseTest.class);
-
-        logger.info("This is an Info Message!");
-
-        //ThreadContext.put("ROUTINGKEY", "logs");
         setPlatform("Mac");
         setBrowserName(browserName);
         utils.log().info("Before Suite Executed Successfully");
@@ -99,7 +91,7 @@ public class BaseTest {
     public void beforeMethod(@Optional String browserName) {
         driver = driverInitialization(browserName);
         driver.manage().window().maximize();
-        driver.get(Constants.launchURL);
+        driver.get(Constants.launchURL2);
         driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS); // Implicit Wait Example
         utils.log().info("Before Method Executed Successfully");
     }
