@@ -7,7 +7,9 @@ import java.io.StringWriter;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Method;
 import java.nio.charset.StandardCharsets;
+
 import org.apache.commons.codec.binary.Base64;
+
 import java.util.HashMap;
 import java.util.Map;
 
@@ -17,12 +19,10 @@ import org.openqa.selenium.OutputType;
 import org.testng.*;
 import org.testng.annotations.ITestAnnotation;
 
-
 import com.aventstack.extentreports.MediaEntityBuilder;
 import com.aventstack.extentreports.markuputils.ExtentColor;
 import com.aventstack.extentreports.markuputils.MarkupHelper;
 
-import ravireddy07.com.github.BaseTest;
 import ravireddy07.com.github.DriverManager;
 import ravireddy07.com.github.utils.ExtentReport;
 import ravireddy07.com.github.utils.TestUtils;
@@ -30,7 +30,6 @@ import ravireddy07.com.github.utils.TestUtils;
 public class TestListener implements ITestListener, IAnnotationTransformer {
     @Override
     public void onTestStart(ITestResult result) {
-        BaseTest base = new BaseTest();
         ExtentReport.startTest(result.getName(), result.getMethod().getDescription()).assignCategory("Mac M1_Chrome").assignAuthor("Ravi Kanth Gojur");
     }
 
