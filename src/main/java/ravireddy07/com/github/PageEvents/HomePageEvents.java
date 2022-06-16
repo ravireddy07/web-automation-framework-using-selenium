@@ -1,20 +1,17 @@
 package ravireddy07.com.github.PageEvents;
 
+import java.io.IOException;
+import java.text.ParseException;
+
 import com.aventstack.extentreports.Status;
 import org.json.simple.JSONObject;
-import org.json.simple.parser.ParseException;
-import org.openqa.selenium.By;
-import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
-import ravireddy07.com.github.BaseTest;
+
 import ravireddy07.com.github.PageObjects.HomePageElements;
 import ravireddy07.com.github.PageObjects.LoginPageElements;
 import ravireddy07.com.github.utils.ExtentReport;
 import ravireddy07.com.github.utils.FindElements;
 import ravireddy07.com.github.utils.JsonParser;
-
-import java.io.IOException;
 
 public class HomePageEvents {
     public void validateLoginPageOpenedOrNot() throws InterruptedException {
@@ -29,14 +26,14 @@ public class HomePageEvents {
         }
     }
 
-    public void enterEmailID() throws IOException, ParseException {
+    public void enterEmailID() throws IOException, org.json.simple.parser.ParseException {
         JSONObject loginData = JsonParser.getTestData();
         FindElements findElement = new FindElements();
         findElement.getWebElement("ID", LoginPageElements.emailInputID).sendKeys(loginData.get("sampleEmail").toString());
         ExtentReport.getTest().log(Status.INFO, "Entered Email ID");
     }
 
-    public void enterPassword() throws IOException, ParseException {
+    public void enterPassword() throws IOException, org.json.simple.parser.ParseException {
         JSONObject loginData = JsonParser.getTestData();
         FindElements findElement = new FindElements();
         findElement.getWebElement("ID", LoginPageElements.passwordID).sendKeys(loginData.get("samplePassword").toString());

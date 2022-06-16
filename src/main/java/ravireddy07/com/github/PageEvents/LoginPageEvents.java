@@ -1,17 +1,18 @@
 package ravireddy07.com.github.PageEvents;
 
+import java.util.concurrent.TimeUnit;
+
 import com.aventstack.extentreports.Status;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.remote.RemoteWebDriver;
 import org.openqa.selenium.support.PageFactory;
+
 import ravireddy07.com.github.BaseTest;
 import ravireddy07.com.github.PageObjects.HomePageElements;
 import ravireddy07.com.github.PageObjects.LoginPageElements;
 import ravireddy07.com.github.utils.ExtentReport;
 import ravireddy07.com.github.utils.TestUtils;
-
-import java.util.concurrent.TimeUnit;
 
 public class LoginPageEvents extends BaseTest {
     TestUtils utils = new TestUtils();

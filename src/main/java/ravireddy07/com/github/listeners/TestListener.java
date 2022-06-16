@@ -7,6 +7,7 @@ import java.io.StringWriter;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Method;
 import java.nio.charset.StandardCharsets;
+import org.apache.commons.codec.binary.Base64;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -16,10 +17,11 @@ import org.openqa.selenium.OutputType;
 import org.testng.*;
 import org.testng.annotations.ITestAnnotation;
 
-import org.apache.commons.codec.binary.Base64;
+
 import com.aventstack.extentreports.MediaEntityBuilder;
 import com.aventstack.extentreports.markuputils.ExtentColor;
 import com.aventstack.extentreports.markuputils.MarkupHelper;
+
 import ravireddy07.com.github.BaseTest;
 import ravireddy07.com.github.DriverManager;
 import ravireddy07.com.github.utils.ExtentReport;

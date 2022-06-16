@@ -10,7 +10,6 @@ public interface LoginPageElements {
     By byInvalidEmailPass = By.xpath("//div[@role='alert' and text() ='Uh oh! The email address or password entered is not valid.']");
 
     String emailInputID = "ap_email";
-
     String loginPageLabelClass = "a-form-label";
     String continueID = "continue";
     String passwordID = "ap_password";

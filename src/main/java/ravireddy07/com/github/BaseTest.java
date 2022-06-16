@@ -11,10 +11,9 @@ import org.openqa.selenium.remote.DesiredCapabilities;
 import org.openqa.selenium.remote.RemoteWebDriver;
 import org.testng.annotations.*;
 
+import io.github.bonigarcia.wdm.WebDriverManager;
 import ravireddy07.com.github.utils.Constants;
 import ravireddy07.com.github.utils.TestUtils;
-
-import io.github.bonigarcia.wdm.WebDriverManager;
 
 public class BaseTest {
     public static RemoteWebDriver driver = null;
@@ -47,7 +46,7 @@ public class BaseTest {
     @BeforeSuite
     public void beforeSuite(@Optional String browserName) {
         setPlatform("Mac");
-        setBrowserName(browserName);
+        setBrowserName("chrome");
         utils.log().info("Before Suite Executed Successfully");
     }
 
@@ -89,7 +88,7 @@ public class BaseTest {
     @Parameters({"browserName"})
     @BeforeMethod
     public void beforeMethod(@Optional String browserName) {
-        driver = driverInitialization(browserName);
+        driver = driverInitialization("chrome");
         driver.manage().window().maximize();
         driver.get(Constants.launchURL2);
         driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS); // Implicit Wait Example

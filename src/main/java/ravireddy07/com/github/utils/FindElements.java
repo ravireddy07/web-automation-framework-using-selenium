@@ -1,10 +1,11 @@
 package ravireddy07.com.github.utils;
 
-import ravireddy07.com.github.BaseTest;
+import java.util.List;
+
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 
-import java.util.List;
+import ravireddy07.com.github.BaseTest;
 
 public class FindElements {
     public WebElement getWebElement(String type, String value) {

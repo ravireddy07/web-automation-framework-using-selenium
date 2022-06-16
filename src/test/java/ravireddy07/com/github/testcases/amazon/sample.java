@@ -1,12 +1,13 @@
 package ravireddy07.com.github.testcases.amazon;
 
-import org.json.simple.parser.ParseException;
+import java.io.IOException;
+import java.text.ParseException;
+
 import org.testng.Assert;
 import org.testng.annotations.Test;
+
 import ravireddy07.com.github.BaseTest;
 import ravireddy07.com.github.PageEvents.HomePageEvents;
-
-import java.io.IOException;
 
 public class sample extends BaseTest {
     @Test
