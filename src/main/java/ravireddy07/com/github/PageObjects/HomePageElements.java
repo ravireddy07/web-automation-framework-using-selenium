@@ -15,6 +15,5 @@ public interface HomePageElements {
     By byReportsTab = By.xpath("//a[@data-testid='reports-menu']");
     By byBranchTab = By.xpath("//a[@data-testid='branches-menu']");
     By byForumTab = By.xpath("//a[@data-testid='forum-menu']");
-
     String signInID = "nav-link-accountList-nav-line-1";
 }

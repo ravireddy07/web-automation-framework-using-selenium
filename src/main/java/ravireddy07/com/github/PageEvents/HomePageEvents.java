@@ -1,7 +1,6 @@
 package ravireddy07.com.github.PageEvents;
 
 import java.io.IOException;
-import java.text.ParseException;
 
 import com.aventstack.extentreports.Status;
 import org.json.simple.JSONObject;

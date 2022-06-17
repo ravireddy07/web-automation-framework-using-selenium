@@ -10,7 +10,7 @@ import ravireddy07.com.github.BaseTest;
 import ravireddy07.com.github.PageEvents.HomePageEvents;
 
 public class sample extends BaseTest {
-    @Test
+    @Test()
     public void sampleTestcase() throws IOException, ParseException {
         try {
             HomePageEvents objHomePage = new HomePageEvents();
