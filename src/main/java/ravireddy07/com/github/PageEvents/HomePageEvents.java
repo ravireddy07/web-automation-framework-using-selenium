@@ -56,4 +56,20 @@ public class HomePageEvents {
         findElement.getWebElement("ID", LoginPageElements.signInSubmitID).click();
         ExtentReport.getTest().log(Status.INFO, "Clicked on Sign in Submit Button");
     }
+    
+    public void clickChooseFileButton(WebDriver driver, String csvFile) {
+        objSeleniumComponents.waitforcomponent(getDriver(), By.xpath(""), 30);
+        element = getDriver().findElement(By.xpath(""));
+        ((RemoteWebElement)element).setFileDetector(new LocalFileDetector());
+        element.sendKeys(csvFile);
+    }
+    
+    public void function1() {
+        // Approach 1
+        JavascriptExecutor js = (JavascriptExecutor) driver;
+        js.executeScript("document.evaluate(xpathExpresion, document, null, 9, null).singleNodeValue.innerHTML=" + DesiredText);
+        
+        // Approach 2
+        js.executeScript("arguments[0].textContent = arguments[1];", element, "This is a test");
+    }
 }
