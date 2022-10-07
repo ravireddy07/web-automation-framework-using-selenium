@@ -39,3 +39,10 @@
                 .pollingEvery(10, TimeUnit.SECONDS)
                 .ignoring(NoSuchElementException.class);
     ```
+
+
+
+## Useful Commands
+
+- `export BROWSER_GRID_URL=https://zalenium.auzmor.com/wd/hub
+mvn test -DBROWSER_GRID_URL=$BROWSER_GRID_URL -Dtest=com.auz.lms.testcase.insights.admin.CoursesInsights#validateAccurateValuesOfCourse`
