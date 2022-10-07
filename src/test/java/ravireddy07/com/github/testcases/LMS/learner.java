@@ -5,51 +5,33 @@ import org.testng.Assert;
 import org.testng.annotations.Test;
 
 import io.qameta.allure.Description;
+import org.testng.asserts.SoftAssert;
 import ravireddy07.com.github.BaseTest;
 import ravireddy07.com.github.PageEvents.LoginPageEvents;
 import ravireddy07.com.github.utils.JsonParser;
 
 public class learner extends BaseTest {
+    LoginPageEvents objLoginPageEvents = new LoginPageEvents(driver);
+    SoftAssert softAssert = new SoftAssert();
     @Test(enabled = true)
     @Description("Sign in to LMS through Learner Credentials")
-    public void validateLearnerTabs1() throws Exception {
+    public void validateLearnerTabs() {
         try {
             JSONObject loginData = JsonParser.getTestData();
-            LoginPageEvents objLoginPageEvents = new LoginPageEvents(driver);
             objLoginPageEvents.enterEmail(loginData.get("learnerEmail").toString());
             objLoginPageEvents.enterPassword(loginData.get("password").toString());
             objLoginPageEvents.clickSignInButton();
-            Assert.assertTrue(objLoginPageEvents.validateInvalidLoginCredentialsToaster());
+            softAssert.assertTrue(objLoginPageEvents.validateInvalidLoginCredentialsToaster());
             objLoginPageEvents.enterPassword(loginData.get("password2").toString());
             objLoginPageEvents.clickSignInButton();
             objLoginPageEvents.clickCoursesTabLearner();
             objLoginPageEvents.clickPathsTabLearner();
+            softAssert.assertTrue(objLoginPageEvents.validateInvalidLoginCredentialsToaster());
             objLoginPageEvents.clickEventsTabLearner();
+            softAssert.assertTrue(objLoginPageEvents.validateInvalidLoginCredentialsToaster());
             objLoginPageEvents.clickForumTab();
             objLoginPageEvents.clickHomeTab();
-        } catch(Exception e) {
-            e.printStackTrace();
-            Assert.fail(e.getMessage());
-        }
-    }
-
-    @Test(enabled = true)
-    @Description("Sign in to LMS through Learner Credentials 2")
-    public void validateLearnerTabs2() throws Exception {
-        try {
-            JSONObject loginData = JsonParser.getTestData();
-            LoginPageEvents objLoginPageEvents = new LoginPageEvents(driver);
-            objLoginPageEvents.enterEmail(loginData.get("learnerEmail").toString());
-            objLoginPageEvents.enterPassword(loginData.get("password").toString());
-            objLoginPageEvents.clickSignInButton();
-            Assert.assertTrue(objLoginPageEvents.validateInvalidLoginCredentialsToaster());
-            objLoginPageEvents.enterPassword(loginData.get("password2").toString());
-            objLoginPageEvents.clickSignInButton();
-            objLoginPageEvents.clickCoursesTabLearner();
-            objLoginPageEvents.clickPathsTabLearner();
-            objLoginPageEvents.clickEventsTabLearner();
-            objLoginPageEvents.clickForumTab();
-            objLoginPageEvents.clickHomeTab();
+            softAssert.assertAll();
         } catch(Exception e) {
             e.printStackTrace();
             Assert.fail(e.getMessage());

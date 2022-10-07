@@ -1,8 +1,5 @@
 package ravireddy07.com.github.testcases.amazon;
 
-import java.io.IOException;
-import java.text.ParseException;
-
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
@@ -10,8 +7,8 @@ import ravireddy07.com.github.BaseTest;
 import ravireddy07.com.github.PageEvents.HomePageEvents;
 
 public class sample extends BaseTest {
-    @Test()
-    public void sampleTestcase() throws IOException, ParseException {
+    @Test(enabled = true)
+    public void sampleTestcase() {
         try {
             HomePageEvents objHomePage = new HomePageEvents();
             objHomePage.clickOnSignInButton();
